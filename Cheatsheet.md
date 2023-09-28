@@ -101,11 +101,11 @@ gpg --verify <filename1> <filename2>
 ```
 dig securitystartshere.org
 ```
-**dig options:**
+**dig options (add after):**
 - `mx` - find **mail exchanger** records
 - `ns` - find **name server** records 
 - `soa` - find **SOA (Start of Authority)** 
-	- stores information about the name of the server, zone administrator, current version of zone data file etc.
+    - stores information about the name of the server, zone administrator, current version of zone data file etc.
 
 - Perform a zone transfer of the pod's DNS internal server
 ```
@@ -126,7 +126,66 @@ whois securitystartshere.org
 ```
 nmap -sP -n 10.50.8.0/24
 ```
-- 
+- SYN Stealth Scan
+    - Sends SYN packets
+    - If host replies with SYN/ACK, RST is sent to stop 3-way handshake from continuing. Reports as open
+    - If host replies with RST, nmap reports as closed
+    - If host no reply, nmap reports as filtered
+```
+nmap -sS -vv --reason 10.50.8.0
+```
+- Suggested SYN scan
+```
+nmap -sS -n -Pn -vv -p<target port range> -g<source port range> <target IP address> --max-retries=<value> --min-parallelism=<value> --max-rtt-timeout=<value>ms
+```
+- ACK Scan
+    - to determine if there is any firewall protecting the target
+    - ACK packet is sent
+    - RST packet is returned because session for ACK packet does not exist
+```
+nmap -sA 10.50.8.0
+```
+- Service version detection scan
+```
+nmap -sV -Pn -n -p80,135-139,445 -vv 10.50.8.3
+```
+- Nmap results
+    - Open: Port is open and accepting requests
+    - Closed: Port is accessible but no services are listening on it (RST packet received)
+    - Filtered: Port cannot be determined open as packets are not reaching host. This usually denotes a firewall on the port which drops packets.
+
+- Other Nmap options can be found on Nmap cheatsheets :?
+
+**OS Determination**
+
+- Determine OS of IP address
+```
+xprobe 10.50.8.1
+```
+
+**Network Mapping**
+`in FC5 VM`
+- run Cheops-ng
+```
+cheops-agent -n
+``` 
+- In GUI
+    - enter `127.0.0.1` in agent hostname so server is listening on same station
+    - Go `Viewspace` and `Add Network` to put network range (add network range `10.50.8.0` and netmask `255.255.255.0`)
+    - Go `Map` and `Map Everything` for it to check enter network for host and render network topology
+
+**Vulnerability Scanning**
+Nessus
+- Refer to book :? (Blue Highlight)
+
+**Web Scanning**
+HTTPrint -> web server fingerprinting tool
+
+- Run HTTPrint
+```
+./httprint -h http://10.50.8.3 -s <full path to signatures.txt file plus the file itself>
+```
+`may want to look at Nikto too`
 
 ### Exploitation
 
