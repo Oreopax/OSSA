@@ -3,23 +3,23 @@
 ## Things to take note 
 - 
 
-# Part 1: What is Information Security
+## Part 1: What is Information Security
 
 ```
 no commands to take note of
 ```
 
-# Part 2: Defending Your Turf & Securing Policy Formulation
+## Part 2: Defending Your Turf & Securing Policy Formulation
 
-# Part 3: Network 101
+## Part 3: Network 101
 
-# Part 4: Defence Tools & Lockdown 
+## Part 4: Defence Tools & Lockdown 
 
-## Firewall
+### Firewall
 
 - fwbuilder is in Centos7 OS
 
-## NIDS (Snort)
+### NIDS (Snort)
 
 - Check Snort Configuration File
 `look out for HOME_NET for ip address range to be monitored`
@@ -40,7 +40,7 @@ snort -A console -c /etc/snort/snort.conf &
 tail -f /var/log/snort/alert
 ```
 
-## HIDS (Tripwire)
+### HIDS (Tripwire)
 
 - Prepare tripwire config file
 ```
@@ -66,7 +66,7 @@ twprint -m r --twrfile /var/lib/tripwire/report/<filename>-<timestamp>.twr
 tripwire --update --twrfile /var/lib/tripwire/report/<filename>
 ```
 
-## GPG Encryption & Verification
+### GPG Encryption & Verification
 
 - Generate new GPG keypair
 ```
@@ -92,12 +92,50 @@ gpg --sign-key <keyid>
 gpg --verify <filename1> <filename2>
 ```
 
-# Part 5: The 5E Attacker Methodology
+## Part 5: The 5E Attacker Methodology
 
+### Exploration 
+**DNS Reconnaissance**
 
+- Find IP address of server
+```
+dig securitystartshere.org
+```
+**dig options:**
+- `mx` - find **mail exchanger** records
+- `ns` - find **name server** records 
+- `soa` - find **SOA (Start of Authority)** 
+	- stores information about the name of the server, zone administrator, current version of zone data file etc.
 
-# Part 6: Wireless Insecurity
+- Perform a zone transfer of the pod's DNS internal server
+```
+dig @10.50.8.1 pod8.com axfr
+```
 
-# Part 7: Incident Response & Computer Forensics
+**Whois Reconnaissance**
 
-# Part 8: The Impact of Law
+- Find where domain is registered
+```
+whois securitystartshere.org
+```
+
+### Enumeration  
+**Port Scanning**
+
+- Ping Sweep to determine how many host(s) in subnet
+```
+nmap -sP -n 10.50.8.0/24
+```
+- 
+
+### Exploitation
+
+### Embedding
+
+### Egress
+
+## Part 6: Wireless Insecurity
+
+## Part 7: Incident Response & Computer Forensics
+
+## Part 8: The Impact of Law
