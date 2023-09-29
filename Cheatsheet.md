@@ -285,6 +285,11 @@ wmic process call create c:\<full file path>:hidenc.exe
 ```
 notepad c:\<full file path>:hidden.txt
 ```
+
+- Find hidden files (in unzip directory)
+```
+dir /r
+```
 **File hiding using Steganography**
 - Using S-Tools
     - try guess using different encryption algo
