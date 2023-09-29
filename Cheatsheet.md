@@ -176,7 +176,7 @@ nmap -sV -Pn -n -p80,135-139,445 -vv 10.50.8.3
 
 - Determine OS of IP address
 ```
-xprobe 10.50.8.1
+xprobe2 10.50.8.1
 ```
 
 **Network Mapping**
